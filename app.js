@@ -36,6 +36,7 @@ io.on('connection', (socket) => {
 });
 app.get('/', (req, res)=>{
   res.send("Hola mundo")
+  console.log(process.env.URLFRONTEND)
 })
 app.get('/crear', async (req, res) => {
   const datos = req.query;
