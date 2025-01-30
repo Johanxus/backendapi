@@ -34,7 +34,9 @@ io.on('connection', (socket) => {
     console.log('Cliente desconectado');
   });
 });
-
+app.get('/', (req, res)=>{
+  res.send("Hola mundo")
+})
 app.get('/crear', async (req, res) => {
   const datos = req.query;
   try {
