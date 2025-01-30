@@ -14,7 +14,7 @@ const io = socketIo(server, {
   }
 });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 mysql://root:HscmvLhyAwMGGJVDdYfEhOtcItjEOrco@roundhouse.proxy.rlwy.net:20062/railway
 app.use(cors({
   origin: "http://localhost:5173" 
