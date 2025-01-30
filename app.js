@@ -64,6 +64,7 @@ app.get('/posts', async (req, res) => {
       "SELECT * FROM `blogpostadmin` ORDER BY `blogpostadmin`.`fechadePublicacion` DESC"
     );
     res.status(200).json(results);
+    console.log(results)
   } catch (err) {
     console.log(err);
     res.status(500).send("Error en el servidor");
