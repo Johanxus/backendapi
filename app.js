@@ -21,9 +21,10 @@ app.use(cors({
 }));
 
 const connection = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  database: "basededatos"
+  host: process.env.HOSTDB || "localhost",
+  user: process.env.USERDB || "root",
+  database: process.env.DB || "basededatos",
+  port: process.env.PORTDB || 3306,
 });
 
 io.on('connection', (socket) => {
