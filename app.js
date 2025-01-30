@@ -24,6 +24,7 @@ const connection = mysql.createPool({
   host: process.env.HOSTDB || "localhost",
   user: process.env.USERDB || "root",
   database: process.env.DB || "basededatos",
+  password: process.env.PASSWORD || '',
   port: process.env.PORTDB || 3306,
 });
 
