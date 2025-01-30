@@ -1,4 +1,5 @@
 const express = require("express");
+const { v4: uuidv4 } = require('uuid');
 const http = require("http");
 const socketIo = require("socket.io");
 const mysql = require("mysql2/promise");
@@ -14,7 +15,7 @@ const io = socketIo(server, {
 });
 
 const port = 3000;
-
+mysql://root:HscmvLhyAwMGGJVDdYfEhOtcItjEOrco@roundhouse.proxy.rlwy.net:20062/railway
 app.use(cors({
   origin: "http://localhost:5173" 
 }));
@@ -35,13 +36,15 @@ io.on('connection', (socket) => {
 app.get('/crear', async (req, res) => {
   const datos = req.query;
   try {
+    const idNuevoPost = uuidv4();
     const [results, fields] = await connection.query(
-      "INSERT INTO `blogpostadmin` (`id`, `title`, `post`) VALUES (UUID(), ?, ?);",
-      [datos.titulo, datos.post]
+      "INSERT INTO `blogpostadmin` (`id`, `title`, `post`) VALUES (?, ?, ?);",
+      [idNuevoPost,datos.titulo, datos.post]
     );
     if (results.affectedRows > 0) {
-      io.emit('nuevoPost', { id: results.insertId, title: datos.titulo, post: datos.post });
+      io.emit('nuevoPost', { id: idNuevoPost, title: datos.titulo, post: datos.post });
       return res.status(200).send("Se ingresó el post correctamente");
+      console.log(results)
     } else {
       return res.status(401).send("No se ingresó nada");
     }
@@ -71,6 +74,7 @@ app.get('/crearcomentario', async (req, res) => {
       [datos.blogid, datos.nombre, datos.comentario]
     );
     if (results.affectedRows > 0) {
+      io.emit('comentario', {blogid: datos.blogid, id: results.insertId, usuario: datos.nombre,comentario: datos.comentario})
       return res.status(200).send("Se ingresó el comentario correctamente");
     } else {
       return res.status(401).send("No se ingresó nada");
