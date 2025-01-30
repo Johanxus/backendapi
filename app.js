@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.URLFRONTEND ||"http://localhost:5173", 
+    origin: process.env.URLFRONTEND ||"https://jovial-torrone-f3b829.netlify.app/", 
     methods: ["GET", "POST"]
   }
 });
@@ -17,7 +17,7 @@ const io = socketIo(server, {
 const port = process.env.PORT || 3000;
 mysql://root:HscmvLhyAwMGGJVDdYfEhOtcItjEOrco@roundhouse.proxy.rlwy.net:20062/railway
 app.use(cors({
-  origin: process.env.URLFRONTEND || "http://localhost:5173" 
+  origin: process.env.URLFRONTEND || "https://jovial-torrone-f3b829.netlify.app/" 
 }));
 
 const connection = mysql.createPool({
